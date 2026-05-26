@@ -12,4 +12,11 @@
 ## AWS S3 Bucket
 ![s3](images/aws-s3.png)
 
-##
+## LinkedIn
+![linkedin](images/linkedin.png)
+
+## OBS
+![obs](images/obs.png)
+
+## Github
+![github](images/github.png)
