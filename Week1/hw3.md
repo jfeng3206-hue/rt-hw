@@ -119,9 +119,13 @@ Steam API: map() vs flatmap();
 
 - how does thread pool work
 
-  A thread pool manages a collection of pre-instantiated, idle threads. When tasks arrive, they are placed  in a queue and assigned to available threads.
+  A thread pool manages a collection of pre-instantiated, idle threads. When tasks arrive, they are placed in a queue and assigned to available threads.
 
   Once a thread finishes a task, it doesn't terminate; it returns to the pool to pick up the next task, avoiding costly thread creation and deletion.
+
+  Return Policy? ThreadFactory? Living Span of a Thread
+
+  Check call pool → entering waiting queue → 
 
 - what is the potential problem for the newCachedThreadPool and newFixedThreadPool and why
 
@@ -159,7 +163,11 @@ Steam API: map() vs flatmap();
 
 - what is wait(), notify(), notifyAll(), join()
 
+  APIs for thread notification and signaling.
+
   - wait(): tells the current thread to pause execution and release the object's lock. The thread enters a waiting thread and remains there until another thread calls notify or notifyAll on the same object
   - notify(): Wakes up a single thread that is currently waiting on that object's monitor. If multiple threads are waiting, the choice of which thread is awakened is arbitrary. 
-  - notifyAll: akes up all threads  currently waiting on that object's monitor. 
+  - notifyAll: asks up all threads  currently waiting on that object's monitor. 
+  - join(): the thread joins after current execution finishes
+  - sleep() & wait(): sleep does not release the lock, wait release the lock. 
 

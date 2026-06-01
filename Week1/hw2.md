@@ -16,6 +16,7 @@
   - Primitive Types: 
     - 8 types (as above). 
     - stored on the stack. 
+    - wrapper class. 
     - has specific default value. when copying a primitive, it is to create a completely independent copy of the value.
 
   - Reference (non-primitive) types: 
@@ -25,7 +26,7 @@
 
 - How does JVM work
   
-  JVM compiles the java code into bytecodes and translates the bytecodes into machine codes for the user's local operating system.
+  JVM compiles the java code into bytecodes (`.class` files) and translates the bytecodes into machine codes for the user's local operating system.
 
   JVM has 3 main phases: class loader, in which it reads compiled bytecode and brings them into JVM's memory; memory area, in which JVM allocates memory to run the program; execution engine, where JVM actually runs the bytecode by translating bytecode into machine languages.
 
@@ -36,7 +37,7 @@
     - Method Area: class-level data, method data and static variables
     - Heap: object 
     - Stack: local variables and partial results
-    - PC registers: memory address of the instruction currently being executed
+    - PC registers: maintain execution order. memory address of the instruction currently being executed
     - Native method stacks: native methods (written in C/C++)
 
 - How does GC work
@@ -97,7 +98,7 @@
 
 - Define Runtime Exception. Describe it with the help of an example.
 
-  Checked at runtime instead of compile time. Do not require explicit exception handling. Typical examples include: `NullPointerException`, `ArrayIndexOutOfBoundsException`, or `IllegalArgumentException`.
+  Checked at runtime instead of compile time. Do not require explicit exception handling. Typical examples include: `InvalidUserInputException`, `NullPointerException`, `ArrayIndexOutOfBoundsException`, or `IllegalArgumentException`.
 
   ```
   int x = 10/0; //Arithmetic Exception
@@ -113,6 +114,7 @@
 
 - Why should we clean up activities such as I/O resources in the finally block?
 
+  I/O resources will exhaust hardware resources, therefore need to be cleanued up to prevent resource leaks.
   Without the finally block, an exception in the try block would skip the cleanup code, causing resource leaks that can exhaust system handles, lock files, or drain connection pools over time.
 
 - Describe OutofMemoryError in exception handling.

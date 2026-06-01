@@ -69,10 +69,9 @@
 
   When stroing a object, the system generates a hash value, places it in a bucket, and uses the `equals` method to check for existing. Therefore, we need the correct hashCode and equals functions to make sure the object have the exact match.
 
+  If we don't overwrite hashcode and equals method, we will not be able to distinguish between hash collision and key value pair update. 
+
 - Play around the common data structure APIs (map, set, queue, list), write some practice codes
-
-
-
 
 - Comparator vs Comparable, when to use which one
 
@@ -118,9 +117,9 @@
 
 - Overriding vs overloading
 
-  Overriding: subclass provides specific implementation for a method definied in its parent class. Happens across different classes with an inheritance relationship. Runtime polymorphism. Must have the same return type.
+  Overriding: In-between classes. subclass provides specific implementation for a method definied in its parent class. Runtime polymorphism. Must have the same return type.
 
-  Overloading: multiple methods share the same name but with different parameters.Happesn within the same class. Compile time polymorphism. Can have the same or different return type. 
+  Overloading: Within the same class. multiple methods share the same name but with different parameters. Compile time polymorphism. Can have the same or different return type. 
 
 
 
