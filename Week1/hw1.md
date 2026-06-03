@@ -23,11 +23,13 @@
 
   HashMap is the most common and standard implementation, while LinkedHashMap is similar to LinkedList, maintaining the insertion order of keys. And TreeMap facilitates sorted order for keys. 
 
+  Mention reasoning for each implementation.
+
+  Maybe mention comparator and comparable. 
+
 - How does HashMap work
 
   HashMap is the standarad implementation for Map interface. 
-  
-  It stores and retrieve data in key-value pairs in constat time O(1) on average.
 
   Each entry is stored as a Node object containing the key, value, hash and a reference to the next node in the bucket. 
   

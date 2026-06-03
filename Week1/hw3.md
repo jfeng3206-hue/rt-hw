@@ -58,7 +58,6 @@
     Arrays.stream(employeeList).forEach(Employee::getSalary);
   ```
 
-
 - what is CompleteableFuture
 
   `CompletableFuture` represents a future result of a background computation. It helps write non-blocking and asynchronous codes.
@@ -86,7 +85,7 @@ List<Student> list = new ArrayList<>();
   - use stream api to count the frequency of each age
   - use steam api to count the number of boys girls (groupby, collector.toMap())
 
-intermediate operation vs terminal operation
+- intermediate operation vs terminal operation
 - Coding: given a char array, use stream api to count the frequency of each char
 Steam API: map() vs flatmap();
 
@@ -156,7 +155,7 @@ Steam API: map() vs flatmap();
 
 - Lock vs synchronized
 
-  - synchronized: a keyword. automatic release. non-blocking is not supported.
+  - synchronized: a keyword. automatic release. non-blocking is not supported. synchronized can be used on instance/block/class/method. need to minize the lock part.
 
   - Lock: an interface/class. needs manual release using a `finally` block, support non-blocking via `tryLock()`.
 
@@ -170,4 +169,3 @@ Steam API: map() vs flatmap();
   - notifyAll: asks up all threads  currently waiting on that object's monitor. 
   - join(): the thread joins after current execution finishes
   - sleep() & wait(): sleep does not release the lock, wait release the lock. 
-

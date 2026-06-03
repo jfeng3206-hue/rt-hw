@@ -1,0 +1,37 @@
+- What is Generics in Java? What are the advantages of using Generics?
+- How does Generics works in Java ? What is type erasure ?
+- What is the difference between List<? extends T>  and  List <? super T>?
+- what is Optional class (write a demo code to use ofNullable, orElse, orElseThrow method)
+- What is Map Interface
+- What is Collections used for
+- What is immutable class
+- Primitive type, reference type
+- what is functional interface
+- what is default method
+- what is the difference between Predicate, Supplier, Consumer, Function? 
+- what is method reference
+- Default keyword  vs Java default scope
+- Stream API operations
+- Map vs. FlatMap
+- Comparator vs Comparable
+- String, StringBuilder, and StringBuffer
+- Overriding vs. Overloading
+- what is oop
+-  CompletableFuture (thenCompose vs. thenCombine)
+- CompletableFuture (thenApply vs. thenApplyAsync):
+- Exception Handling Basics: A
+- Checked vs. Unchecked Exception Customization
+- Try-with-resources
+- Finally, Final, and Finalize
+- Out of Memory (OOM) Errors
+- JVM Troubleshooting and Debugging
+- IO Resources and Runtime Exceptions
+- Thread Pool Implementation: 
+- Future vs. CompletableFuture: 
+- Lock vs. Synchronized Keywords: 
+- Thread Signaling APIs
+- JRE, JDK, and JVM Definitions: 
+- List vs. Set Comparison: 
+- LinkedList vs. ArrayList: 
+- HashMap Internals and Hash Collision
+

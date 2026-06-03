@@ -16,11 +16,11 @@
   - Primitive Types: 
     - 8 types (as above). 
     - stored on the stack. 
-    - wrapper class. 
+    - wrapper class. auto-boxing. 
     - has specific default value. when copying a primitive, it is to create a completely independent copy of the value.
 
   - Reference (non-primitive) types: 
-    - objects. 
+    - objects. Everything that's not primitive. 
     - no actual data; instead they store the memory address (refernce). Default values are null. 
     - Reference stored on the stack, but actual object data resides on the heap. 
 
@@ -129,6 +129,7 @@
 
   It can help prevent exceptions during compile time, and improve code reusability. 
 
+
 - How does Generics work in Java? What is type erasure?
 
   Generics in Java work at compile time, but generic type information is removed from the bytecode. This process is called type erasure.
@@ -141,6 +142,8 @@
   - List<? super T>: accepts a list of `T` or any supertype of `T`. You can add T or its subtypes, but reading only gives you Object. (Consumer / write-friendly)
 
   PECS rule: producer extends, consumer super. 
+
+- Optional Class: the Optional class is a Java 8 feature designed to wrap return values to prevent null pointer exceptions. They highlight common APIs such as `ofNullable` to allow null values, `orElse` to provide default values, and `orElseThrow` to handle exceptions when values are missing 
 
 ## Coding
 
