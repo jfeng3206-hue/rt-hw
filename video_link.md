@@ -8,3 +8,6 @@ This file lists all recorded videos for interview preparation.
 
 - Java Basics Video
   https://rt-mock-014467817298-us-west-2-an.s3.us-west-2.amazonaws.com/java-basics.mov
+
+- Web Basics Video
+  https://rt-mock-014467817298-us-west-2-an.s3.us-west-2.amazonaws.com/web-basics.mov

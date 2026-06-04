@@ -2,6 +2,8 @@
 
 ### Use your own words to describe the following terms
 
+- Recording Link: https://rt-mock-014467817298-us-west-2-an.s3.us-west-2.amazonaws.com/web-basics.mov
+
 - client - server model
 
   The client-server model is basically a way of splitting an application into two roles that talk to each other over a network. Key idea: the separation of responsibility.
