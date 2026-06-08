@@ -36,12 +36,18 @@
       | PUT | full update | No | Yes | No |
       | PATCH | partial update | No | No | No |
       | DELETE | remove | No | Yes | No |
+
     - a URL (the address of the source/door number)
     - a protocol version, like HTTP/1.1 
     - the headers which carry metadata about the request - like what data format accepted (JSON or xml), encoding, authorization info.
 
   The response:
-    - Status code: 2xx if succeeded (200 OK, 201 created, 204 no content),3xx redirection, 4xx client error (bad/invalid user input), 404 resource not found, 5xx if the server broke
+    - Status code: 
+      - 1xx as an HTTP informational response,  indicating that the server has received your request and is actively processing it
+      - 2xx if succeeded (200 OK, 201 created, 204 no content),
+      - 3xx redirection, 
+      - 4xx client error (bad/invalid user input), 404 resource not found, 
+      - 5xx if the server broke
     - Header: describing the format and encoding of what's coming back
     - Body: actual data the client asked for, or an error message.
 

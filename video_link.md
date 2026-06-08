@@ -11,3 +11,10 @@ This file lists all recorded videos for interview preparation.
 
 - Web Basics Video
   https://rt-mock-014467817298-us-west-2-an.s3.us-west-2.amazonaws.com/web-basics.mov
+
+
+## Week 2
+
+- Mock Practice Video 0605
+  Include: Exception Handling, Optional Class, Race Condition Handling, and Thread lifecycle
+  https://rt-mock-014467817298-us-west-2-an.s3.us-west-2.amazonaws.com/mock-practice-0605.mov
