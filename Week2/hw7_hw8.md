@@ -219,33 +219,3 @@
     6. Presentation: translation, encryption, cpmressiong (TLS/SSL, encoding)
     7. Application: interface to the user/app; network services (HTTP)
 
-
-### Mock Practice Video 0605
-  Include: Exception Handling, Optional Class, Race Condition Handling, and Thread lifecycle
-  https://rt-mock-014467817298-us-west-2-an.s3.us-west-2.amazonaws.com/mock-practice-0605.mov
-
-Scripts:
-
-1. How to handle exceptions:
-
-    Java exceptions split into checked and unchecked. Checked ones are recoverable conditions the compiler forces me to catch or declare with throws; unchecked ones extend RuntimeException and signal bugs I should fix rather than catch. I raise exceptions with throw and declare them with throws. For handling, I use try-catch-finally — where finally always runs for cleanup — and prefer try-with-resources for anything AutoCloseable, since it closes files and streams automatically and removes the need for a manual finally.
-
-2. How to handle race condition? 
-    - Locking: synchronized keyword and lock api.
-    - Non-locking: use CAS principle based classes, like AtomicInteger, AomicLong etc. OR immutable class
-
-3. Thread lifecycle / Thread states
-
-    - New, Runnable, Waiting, Blocked, Timed Waiting, Terminated
-    - `start()` makes it Runnable; the scheduler runs it; it leaves Runnable into Blocked (waiting for a lock), Waiting (`wait`/`join` with no timeout), or Timed Waiting (`sleep`/timed `wait`); each of those returns to Runnable; and when `run()` completes it's Terminated."
-    - New → Runnable: `start()`
-    - Runnable → Running → Runnable: The scheduler picks a Runnable thread to actually execute.
-    - Runnable → Blocked: The thread tries to enter a `synchronized` block/method but another thread holds the lock, so it waits to acquire the monitor lock. Once the lock is free and acquired, it goes back to Runnable.
-    - Runnable → Waiting: The thread calls `wait()` (with no timeout), `join()` (no timeout), or `LockSupport.park()`. It waits indefinitely until another thread signals it — e.g. via `notify()`/`notifyAll()` — then returns to Runnable.
-    - Runnable → Timed Waiting: Same idea but with a timeout — `sleep(ms)`, `wait(ms)`, `join(ms)`, etc. It returns to Runnable when the time expires or it's notified.
-    - Runnable → Terminated: When the `run()` method finishes (returns normally or throws an uncaught exception), the thread dies and can't be restarted.
-
-4. What is Optional in Java and how can you use it? (Java 8 language/library feature)
-
-    - Java 8 new feature
-    - wrapper class to help avoid nullpointerexception, with orElseThrow(), ofNullable(), orElse().`ofNullable` to allow null values, `orElse` to provide default values, and `orElseThrow` to handle exceptions when values are missing
