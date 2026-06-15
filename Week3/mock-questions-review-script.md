@@ -99,4 +99,111 @@
       Liskov Substitution: a subtype is usable wherever its parent is — implemented through polymorphism, like a List reference holding an ArrayList or LinkedList. 
       Interface Segregation: keep interfaces small and focused rather than one huge interface that forces classes to implement methods they don't need. 
       Dependency Inversion — depend on abstractions, which is exactly the reasoning behind Spring's IoC, where the container injects dependencies instead of the developer wiring them manually.
+
+
+**Mock Questions 0611**
+
+Link:https://rt-mock-014467817298-us-west-2-an.s3.us-west-2.amazonaws.com/mock-practice-0611.mov
+
+- what annotations you used in spring / How does Spiring IoC work (all annotations and injection and bean types)
+
+  Start with two features: IoC and AOP
+
+  - IoC: @SpringBootApplication enables auto-configuration, Spring configuration and component scan. Register beans with @Controller/@Restcontroller, @Service, @Repository for 3-tier layers. @Component for anything outside those layers; @Bean + @Configuration for third-party classes.  Different bean scopes using @Scope: Singleton, prototype, session, request, application
+
+    -IoC implemented via DI using @Autowire, which has three types (field, construcotr, setter)
+
+  - AOP: AOP has two styles. The first is @RestControllerAdvice with @ExceptionHandler for handling exceptions at the controller layer. The second is the aspect style: I define an @Aspect with a @Pointcut for where, and the advice annotations — @Around, @Before, @After, @AfterThrowing, @AfterReturning — for when the logic runs.
+
+  - RESTful endpoints: Since development is annotation-driven, I design endpoints to avoid boilerplate using @RestController, then @RequestMapping for the parent URL, and @GetMapping / @PostMapping / @PutMapping / @DeleteMapping for each operation. For the request side I handle inputs with @RequestParam, @PathVariable, @RequestHeader, and @RequestBody. For the response, I either return through @RestController directly or use @ResponseBody, always with the appropriate HTTP status code.
+
+- completablefuture / multithreading in spring framework
+
+  First, CompletableFuture is a java 8 feature as a replacement for the older FutureTask. FutureTask blocks the main thread when using get() and waiting for the result, whereas CompletableFuture is non-blocking and gives chaining APIs like thenApply and thenCompose. So in my service layer, if i have a payload i can slice into chunks, i can use completableefuture to process each chunk in paralle and join the results and return one integrated response to the user. 
+
+  Second, in Spring, I put @Async on a service method — say it returns CompletableFuture<User> — so when multiple requests hit that method they execute in parallel instead of in series. For that to work I need @EnableAsync, and I configure a thread pool by implementing AsyncConfigurer and overriding the executor with a ThreadPoolTaskExecutor. After Java 21 there are also virtual threads, where I don't even need to manage a pool — I just wrap the task in a virtual thread.
+
+  When I customize the thread pool, there are seven parameters — core pool size, max pool size, keep-alive time, the work queue, and so on. And an important design point: I segregate pools by task type
+    - Core tasks — like order processing or anything financial, where the company is actually making money — get a larger, more powerful primary pool with more threads and resources. 
+    - Auxiliary tasks — email or SMS notifications, monthly report generation — go to a smaller pool, and there I can use a lenient rejection policy like discard-oldest, because some latency or even dropping a task there is acceptable. 
+    - If I have multiple pools I use @Qualifier to pick which one a method uses.
   
+  Third, the thread-safety layer underneath all of this. For shared state I use atomic types like AtomicReference with compare-and-swap as a non-locking mechanism, ConcurrentHashMap for concurrent collections, the synchronized keyword for critical sections, and the Lock interface with ReentrantLock when I need more control. So altogether it's CompletableFuture and @Async for the async execution, thread pools for managing it, and CAS plus locks for thread safety.
+
+- what annotations we use to configure customized actuator
+
+  Actuator expose endpoints to monitor application status.
+
+  Customization annotations exist — @Endpoint, @ReadOperation (GET), @WriteOperation (POST), @DeleteOperation — but rarely customize it manually. 
+
+- Could AOP apply to the private method?
+
+  No. AOP works through proxies, which can't override private methods — and even nested public method calls aren't intercepted 
+
+  Solutions: (1) extract the logic into a separate Spring bean and inject it, or (2) self-injection (breaking the circular dependency with @Lazy). (3) AspctJ
+
+- how can you use/define profile
+
+  - Profiles define environment-specific configuration, such as dev, test, prod, and activate the right set at runtime
+
+  - Profiles are defined in profile-specific property files: application-dev.properties etc. Annotated beans with @Profile(\"dev"\) so they load under that profile. 
+  
+  - activated via spring.profiles.active=dev in properties. an environment variable SPRING_PROFILES_ACTIVE; or a JVM arg -Dspring.profiles.active=prod.
+
+- why AOP.
+
+  - AOP separate cross-cutting concerns, such as logging and security, from core business logic, enhances serial exectuion with extra logic as fucntionality, and avoids repetitive codes. 
+
+- what java version can we use with spring boot 3 
+
+  Java 17.
+
+- Dependency injection types
+
+  Three types: constructor, field, setter. 
+  
+  - Constructor injection is officially recommended because it ensures all beans are instantiated at boot-up, preventing NullPointerExceptions, and eases unit testing (you can pass mock/Mockito objects directly). 
+
+  - Setter injection helps when you have optional dependencies
+
+  - Field injection is not recommended because it will be difficult to test without Spring Boot.
+
+- how you implement exception in springboot
+
+  - In java, there are 2 types of exception: runtime vs compile time. Compile time checked exceptions force me to wrap in try-catch or declare with throws. Run time exceptions need me to extend RunTimeException to handle. On top of the built-in ones, I define custom exceptions for my business logic. For example, resourcenotfound exception. For each custom exception, carry an error code and a clear message.
+
+  - In spring, exception handling is implemented via @RestControllerAdvice with @ExceptionHandler by having a global exception handler class.  Global exception handler helps customized runtime exceptions. For example, you can have resourcenotfound exception with It returns a consistent response — the HTTP status code plus a structured error body with the message and a timestamp. For example, my ResourceNotFoundException maps to a 404, a validation failure maps to a 400, and anything unexpected falls back to a 500.
+
+  - This is really one of the two AOP styles in Spring — @RestControllerAdvice is the controller-layer way of intercepting cross-cutting concerns, the other being the @Aspect plus pointcut style. So global exception handling keeps my controllers clean and gives the front end a consistent error contract.
+
+- what spring boot version you used
+
+  I've had the experience of working with both Spring Boot 2 and 3.
+
+  Spring Boot 2 is on Java 8+ and Spring Boot 3 is compatible since Java 17. Spring Boot 3 also moved from javax to jakarta namespaces.
+
+- what is @EnableAutoConfiguration
+
+  It loads all the jar packages you imported in the Maven pom.xml into the Spring container — when you add @SpringBootApplication to the boot class, it scans and loads those third-party dependencies so the app runs without manual configuration.
+
+- how to stop auto configuration in spring boot
+
+  use the exclude attribute inside @SpringBootApplication to exclude a specific class or a whole package path. 
+
+  Or the spring.autoconfigure.exclude property in application.properties
+
+- advantages of Spring boot Framework
+
+  - Auto-configuration
+  - Embedded Tomcat and acuator
+  - Starter dependencies
+
+- How do you customize an annotation
+
+  via meta-annotations
+
+  - @Target — where the annotation can be applied.
+  - @Retention — when it stays valid (compile time, load/class time, or runtime).
+  - @Documented - Integrates the custom token into generated Javadoc
+  - @Inherited - whether subclasses inherit it,  
+  - @Repeatable - apply the same annotation multiple times at one location with different values.
